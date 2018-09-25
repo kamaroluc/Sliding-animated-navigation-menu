@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+ <link rel="stylesheet" type="text/css" href="style.css">
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+ <script src="animation.js"></script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" />
+ <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+
+
+</head>
+<body>
+        <div class="main-menu">
+                <div class="main-menu-form">
+                  <div class="main-menu-btn"><i class="fa fa-bars"></i></div>
+                </div>  
+                <div class="main-menu-content">
+                  <!-- main logo -->
+                  <div class="main-menu-logo">
+                    <h2>Welcome to my portfolio</h2>
+                  </div>
+                 <!-- navigation -->
+                 <ul class="main-menu-nav">
+                        <li><a href="portfolio1.html" class="yellow"><i class="fa fa-book fa-fw front"></i>&nbsp; Portfolio</a></li>
+                        <li><a href="contact.html" class="purple"><i class="fa fa-envelope fa-fw"></i>&nbsp; Contact me</a></li>
+                        <li><a href="index.html" class="red"><i class="fa fa-users fa-fw"></i>&nbsp; About me</a></li>
+                      </ul>
+              
+                  <a href="#" class="main-menu-close"><i class="fa fa-close"></i>&nbsp; Close menu</a>
+                </div>
+              </div>
+              
+              
+              <div class="main-wrapper">
+                <div class="main-content">
+                        <div id="main-container" class="container">
+                                <section class="main-section">
+                                  <h1>Contact</h1>
+                                  <div class="alert">Your message has been sent</div>
+
+                                  <form id="contact-form">
+                                    <ul>
+                                      <li>
+                                        <label for="name">Name</label>
+                                        <input type="text" id="name" name="name" placeholder="John Smith" required="required">
+                                      </li>
+                                      <li>
+                                        <label for="email">Email</label>
+                                        <input type="email" id="email" name="email" placeholder="example@gmail.com" required="required">
+                                      </li>
+                                      <li>
+                                        <label for="message">Message</label>
+                                        <textarea id="message" name="message" required="required"></textarea>
+                                      </li><p>  <mark>Link to my firebase database </mark></p>
+                                    </ul>
+                                    <button type="submit">Submit</button>
+
+                                  </form>
+                            
+                                </section>
+                               
+                                
+
+                </div> 
+              </div>
+
+              <script>
+            
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCQdasS0daDxtOMDkhZ2D4qstpl7UJZ9e0",
+    authDomain: "messageme-752e4.firebaseapp.com",
+    databaseURL: "https://messageme-752e4.firebaseio.com",
+    projectId: "messageme-752e4",
+    storageBucket: "messageme-752e4.appspot.com",
+    messagingSenderId: "974031336592"
+  };
+  firebase.initializeApp(config);
+
+// Reference messages collection
+var messagesRef = firebase.database().ref('messages');
+
+// Listen for form submit
+document.getElementById('contactForm').addEventListener('submit', submitForm);
+
+// Submit form
+function submitForm(e){
+  e.preventDefault();
+
+ // Get values
+ var name = getInputVal('name');
+  var email = getInputVal('email');
+  var message = getInputVal('message');
+
+
+  // Save message
+  saveMessage(name, company, email, phone, message);
+
+ // Show alert
+ document.querySelector('.alert').style.display = 'block';
+
+// Hide alert after 3 seconds
+setTimeout(function(){
+  document.querySelector('.alert').style.display = 'none';
+},3000);
+
+// Clear form
+document.getElementById('contactForm').reset();
+}
+
+// Function to get get form values
+function getInputVal(id){
+return document.getElementById(id).value;
+}
+
+// Save message to firebase
+function saveMessage(name, email, message){
+var newMessageRef = messagesRef.push();
+newMessageRef.set({
+  name: name,
+  email:email,
+  message:message
+});
+}
+
+
+              </script>
+</body>
+</html>
